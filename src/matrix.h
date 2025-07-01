@@ -5,14 +5,14 @@
 #ifndef MATRIX_MATRIX_H
 #define MATRIX_MATRIX_H
 
-#include <iostream>
 #include <array>
+#include <iostream>
 #include <iterator>
 #include "biginteger.h"
 
-
 template <size_t N, typename Field>
-std::array<Field, N> &operator+=(std::array<Field, N> &that, const std::array<Field, N> &another) {
+std::array<Field, N>& operator+=(std::array<Field, N>& that,
+                                 const std::array<Field, N>& another) {
     for (size_t i = 0; i < N; ++i) {
         that[i] += another[i];
     }
@@ -20,7 +20,8 @@ std::array<Field, N> &operator+=(std::array<Field, N> &that, const std::array<Fi
 }
 
 template <size_t N, typename Field>
-std::array<Field, N> &operator-=(std::array<Field, N> &that, const std::array<Field, N> &another) {
+std::array<Field, N>& operator-=(std::array<Field, N>& that,
+                                 const std::array<Field, N>& another) {
     for (size_t i = 0; i < N; ++i) {
         that[i] -= another[i];
     }
@@ -28,7 +29,8 @@ std::array<Field, N> &operator-=(std::array<Field, N> &that, const std::array<Fi
 }
 
 template <size_t N, typename Field>
-std::array<Field, N> operator*=(std::array<Field, N> &that, const Field &lambda) {
+std::array<Field, N> operator*=(std::array<Field, N>& that,
+                                const Field& lambda) {
     for (size_t i = 0; i < N; ++i) {
         that[i] *= lambda;
     }
@@ -36,7 +38,8 @@ std::array<Field, N> operator*=(std::array<Field, N> &that, const Field &lambda)
 }
 
 template <size_t N, typename Field>
-std::array<Field, N> operator/=(std::array<Field, N> &that, const Field &lambda) {
+std::array<Field, N> operator/=(std::array<Field, N>& that,
+                                const Field& lambda) {
     for (size_t i = 0; i < N; ++i) {
         that[i] /= lambda;
     }
@@ -44,25 +47,27 @@ std::array<Field, N> operator/=(std::array<Field, N> &that, const Field &lambda)
 }
 
 template <size_t N, typename Field>
-std::array<Field, N> operator+(std::array<Field, N> that, const std::array<Field, N> &another) {
+std::array<Field, N> operator+(std::array<Field, N> that,
+                               const std::array<Field, N>& another) {
     that += another;
     return that;
 }
 
 template <size_t N, typename Field>
-std::array<Field, N> operator-(std::array<Field, N> that, const std::array<Field, N> &another) {
+std::array<Field, N> operator-(std::array<Field, N> that,
+                               const std::array<Field, N>& another) {
     that -= another;
     return that;
 }
 
 template <size_t N, typename Field>
-std::array<Field, N> operator*(std::array<Field, N> that, const Field &lambda) {
+std::array<Field, N> operator*(std::array<Field, N> that, const Field& lambda) {
     that *= lambda;
     return that;
 }
 
 template <size_t N, typename Field>
-std::array<Field, N> operator/(std::array<Field, N> that, const Field &lambda) {
+std::array<Field, N> operator/(std::array<Field, N> that, const Field& lambda) {
     for (size_t i = 0; i < N; ++i) {
         that[i] /= lambda;
     }
@@ -93,22 +98,23 @@ class Matrix {
         }
     }
 
-    Matrix(const std::initializer_list<std::array<Field, M>> &another) {
-        typename std::initializer_list<std::array<Field, M>>::iterator ptr = another.begin();
+    Matrix(const std::initializer_list<std::array<Field, M>>& another) {
+        typename std::initializer_list<std::array<Field, M>>::iterator ptr =
+            another.begin();
         for (size_t i = 0; ptr != another.end(); ++ptr, ++i) {
             matrix_[i] = *ptr;
         }
     }
 
-    std::array<Field, M> &operator[](size_t index) {
+    std::array<Field, M>& operator[](size_t index) {
         return matrix_[index];
     }
 
-    const std::array<Field, M> &operator[](size_t index) const {
+    const std::array<Field, M>& operator[](size_t index) const {
         return matrix_[index];
     }
 
-    Matrix<N, M, Field> &operator+=(const Matrix<N, M, Field> &another) {
+    Matrix<N, M, Field>& operator+=(const Matrix<N, M, Field>& another) {
         for (size_t i = 0; i < N; ++i) {
             for (size_t j = 0; j < M; ++j) {
                 matrix_[i][j] += another.matrix_[i][j];
@@ -117,7 +123,7 @@ class Matrix {
         return *this;
     }
 
-    Matrix<N, M, Field> &operator-=(const Matrix<N, M, Field> &another) {
+    Matrix<N, M, Field>& operator-=(const Matrix<N, M, Field>& another) {
         for (size_t i = 0; i < N; ++i) {
             for (size_t j = 0; j < M; ++j) {
                 matrix_[i][j] -= another.matrix_[i][j];
@@ -126,7 +132,7 @@ class Matrix {
         return *this;
     }
 
-    Matrix<N, M, Field> &operator*=(const Field &lambda) {
+    Matrix<N, M, Field>& operator*=(const Field& lambda) {
         for (size_t i = 0; i < N; ++i) {
             for (size_t j = 0; j < M; ++j) {
                 matrix_[i][j] *= lambda;
@@ -135,7 +141,7 @@ class Matrix {
         return *this;
     }
 
-    Matrix<N, M, Field> &operator/=(const Field &lambda) {
+    Matrix<N, M, Field>& operator/=(const Field& lambda) {
         static_assert(is_field_v<Field>);
         for (size_t i = 0; i < N; ++i) {
             for (size_t j = 0; j < M; ++j) {
@@ -188,7 +194,8 @@ class Matrix {
             const Field divider = extendedMatrix.matrix_[N - i][N - i];
             extendedMatrix.matrix_[N - i] /= divider;
             for (size_t j = 0; i + j < N; ++j) {
-                extendedMatrix[j] -= extendedMatrix[N - i] * extendedMatrix[j][N - i];
+                extendedMatrix[j] -=
+                    extendedMatrix[N - i] * extendedMatrix[j][N - i];
             }
         }
         for (size_t i = 0; i < N; ++i) {
@@ -216,7 +223,7 @@ class Matrix {
         return ans;
     }
 
-    bool operator==(const Matrix<N, M, Field> &another) const {
+    bool operator==(const Matrix<N, M, Field>& another) const {
         bool ans = true;
         for (size_t i = 0; i < N && ans; ++i) {
             for (size_t j = 0; j < M && ans; ++j) {
@@ -238,7 +245,8 @@ class Matrix {
   protected:
     std::array<std::array<Field, M>, N> matrix_;
 
-    template <size_t, size_t, typename> friend class Matrix;
+    template <size_t, size_t, typename>
+    friend class Matrix;
 
     size_t triangulateMatrix() {
         static_assert(is_field_v<Field>);
@@ -257,7 +265,8 @@ class Matrix {
                 j = 0;
                 while (j < N) {
                     if (j != cnt) {
-                        matrix_[j] -= matrix_[cnt] * (matrix_[j][i] / matrix_[cnt][i]);
+                        matrix_[j] -=
+                            matrix_[cnt] * (matrix_[j][i] / matrix_[cnt][i]);
                     }
                     ++j;
                 }
@@ -289,13 +298,15 @@ class Matrix {
 };
 
 template <size_t N, size_t M, typename Field>
-Matrix<N, M, Field> operator+(Matrix<N, M, Field> a, const Matrix<N, M, Field> &b) {
+Matrix<N, M, Field> operator+(Matrix<N, M, Field> a,
+                              const Matrix<N, M, Field>& b) {
     a += b;
     return a;
 }
 
 template <size_t N, size_t M, typename Field>
-Matrix<N, M, Field> operator-(Matrix<N, M, Field> a, const Matrix<N, M, Field> &b) {
+Matrix<N, M, Field> operator-(Matrix<N, M, Field> a,
+                              const Matrix<N, M, Field>& b) {
     a -= b;
     return a;
 }
@@ -319,7 +330,7 @@ Matrix<N, M, Field> operator/(Matrix<N, M, Field> a, Field lambda) {
 }
 
 template <size_t A, size_t B, size_t C, size_t D, typename Field>
-bool operator==(const Matrix<A, B, Field> &a, const Matrix<C, D, Field> &b) {
+bool operator==(const Matrix<A, B, Field>& a, const Matrix<C, D, Field>& b) {
     if (A != C || B != D) {
         return false;
     }
@@ -327,7 +338,8 @@ bool operator==(const Matrix<A, B, Field> &a, const Matrix<C, D, Field> &b) {
 }
 
 template <size_t N, typename Field>
-Matrix<N, N, Field> &operator*=(Matrix<N, N, Field> &a, const Matrix<N, N, Field> &b) {
+Matrix<N, N, Field>& operator*=(Matrix<N, N, Field>& a,
+                                const Matrix<N, N, Field>& b) {
     Matrix<N, N, Field> ans;
     for (size_t i = 0; i < N; ++i) {
         for (size_t j = 0; j < N; ++j) {
@@ -341,7 +353,8 @@ Matrix<N, N, Field> &operator*=(Matrix<N, N, Field> &a, const Matrix<N, N, Field
 }
 
 template <size_t N, size_t M, size_t K, typename Field>
-Matrix<N, K, Field> operator*(const Matrix<N, M, Field> &a, const Matrix<M, K, Field> &b) {
+Matrix<N, K, Field> operator*(const Matrix<N, M, Field>& a,
+                              const Matrix<M, K, Field>& b) {
     Matrix<N, K, Field> ans;
     for (size_t i = 0; i < N; ++i) {
         for (size_t j = 0; j < K; ++j) {
@@ -357,9 +370,10 @@ Matrix<N, K, Field> operator*(const Matrix<N, M, Field> &a, const Matrix<M, K, F
 template <size_t N, typename Field = Rational>
 class SquareMatrix : public Matrix<N, N, Field> {
   public:
-    SquareMatrix() : Matrix<N, N, Field>() {};
+    SquareMatrix() : Matrix<N, N, Field>(){};
 
-    SquareMatrix(const std::initializer_list<std::array<Field, N>> &another) : Matrix<N, N, Field>(another) {};
+    SquareMatrix(const std::initializer_list<std::array<Field, N>>& another)
+        : Matrix<N, N, Field>(another){};
 };
 
-#endif //MATRIX_MATRIX_H
+#endif  //MATRIX_MATRIX_H

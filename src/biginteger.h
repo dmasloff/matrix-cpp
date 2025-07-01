@@ -13,89 +13,89 @@ class BigInteger;
 
 class Rational;
 
-BigInteger operator+(BigInteger a, const BigInteger &b);
+BigInteger operator+(BigInteger a, const BigInteger& b);
 
-BigInteger operator-(BigInteger a, const BigInteger &b);
+BigInteger operator-(BigInteger a, const BigInteger& b);
 
-BigInteger operator*(BigInteger a, const BigInteger &b);
+BigInteger operator*(BigInteger a, const BigInteger& b);
 
-BigInteger operator/(BigInteger a, const BigInteger &b);
+BigInteger operator/(BigInteger a, const BigInteger& b);
 
-BigInteger operator%(BigInteger a, const BigInteger &b);
+BigInteger operator%(BigInteger a, const BigInteger& b);
 
-bool operator==(const BigInteger &a, const BigInteger &b);
+bool operator==(const BigInteger& a, const BigInteger& b);
 
-bool operator!=(const BigInteger &a, const BigInteger &b);
+bool operator!=(const BigInteger& a, const BigInteger& b);
 
-bool operator<(const BigInteger &a, const BigInteger &b);
+bool operator<(const BigInteger& a, const BigInteger& b);
 
-bool operator>(const BigInteger &a, const BigInteger &b);
+bool operator>(const BigInteger& a, const BigInteger& b);
 
-bool operator<=(const BigInteger &a, const BigInteger &b);
+bool operator<=(const BigInteger& a, const BigInteger& b);
 
-bool operator>=(const BigInteger &a, const BigInteger &b);
+bool operator>=(const BigInteger& a, const BigInteger& b);
 
-std::ostream &operator<<(std::ostream &os, const BigInteger &bigInteger);
+std::ostream& operator<<(std::ostream& os, const BigInteger& bigInteger);
 
-std::istream &operator>>(std::istream &is, BigInteger &bigInteger);
+std::istream& operator>>(std::istream& is, BigInteger& bigInteger);
 
-BigInteger operator ""_bi(unsigned long long num);
+BigInteger operator""_bi(unsigned long long num);
 
-BigInteger operator ""_bi(const char *c, size_t len);
+BigInteger operator""_bi(const char* c, size_t len);
 
-Rational operator+(Rational a, const Rational &b);
+Rational operator+(Rational a, const Rational& b);
 
-Rational operator-(Rational a, const Rational &b);
+Rational operator-(Rational a, const Rational& b);
 
-Rational operator*(Rational a, const Rational &b);
+Rational operator*(Rational a, const Rational& b);
 
-Rational operator/(Rational a, const Rational &b);
+Rational operator/(Rational a, const Rational& b);
 
-bool operator==(const Rational &a, const Rational &b);
+bool operator==(const Rational& a, const Rational& b);
 
-bool operator!=(const Rational &a, const Rational &b);
+bool operator!=(const Rational& a, const Rational& b);
 
-bool operator<(const Rational &a, const Rational &b);
+bool operator<(const Rational& a, const Rational& b);
 
-bool operator>(const Rational &a, const Rational &b);
+bool operator>(const Rational& a, const Rational& b);
 
-bool operator<=(const Rational &a, const Rational &b);
+bool operator<=(const Rational& a, const Rational& b);
 
-bool operator>=(const Rational &a, const Rational &b);
+bool operator>=(const Rational& a, const Rational& b);
 
-std::ostream &operator<<(std::ostream &os, const Rational &r);
+std::ostream& operator<<(std::ostream& os, const Rational& r);
 
 class BigInteger {
   public:
     BigInteger(long long num);
 
-    BigInteger(const std::string &str);
+    BigInteger(const std::string& str);
 
     BigInteger();
 
-    BigInteger &operator=(BigInteger other);
+    BigInteger& operator=(BigInteger other);
 
     BigInteger operator+() const;
 
     BigInteger operator-() const;
 
-    BigInteger &operator+=(const BigInteger &other);
+    BigInteger& operator+=(const BigInteger& other);
 
-    BigInteger &operator-=(const BigInteger &other);
+    BigInteger& operator-=(const BigInteger& other);
 
-    BigInteger &operator*=(long long num);
+    BigInteger& operator*=(long long num);
 
-    BigInteger &operator*=(const BigInteger &other);
+    BigInteger& operator*=(const BigInteger& other);
 
-    BigInteger &operator/=(const BigInteger &other);
+    BigInteger& operator/=(const BigInteger& other);
 
-    BigInteger &operator%=(const BigInteger &other);
+    BigInteger& operator%=(const BigInteger& other);
 
-    BigInteger &operator++();
+    BigInteger& operator++();
 
     BigInteger operator++(int);
 
-    BigInteger &operator--();
+    BigInteger& operator--();
 
     BigInteger operator--(int);
 
@@ -107,7 +107,7 @@ class BigInteger {
 
     void makePositive();
 
-    void Swap(BigInteger &other);
+    void Swap(BigInteger& other);
 
     explicit operator bool() const;
 
@@ -125,42 +125,42 @@ class BigInteger {
 
     void shrinkDigits();
 
-    void subtractionWithConstSign(const BigInteger &other);
+    void subtractionWithConstSign(const BigInteger& other);
 
-    void subtractionWithChangeableSign(const BigInteger &other);
+    void subtractionWithChangeableSign(const BigInteger& other);
 
-    void addition(const BigInteger &other);
+    void addition(const BigInteger& other);
 
-    void commonCaseAddition(const BigInteger &other, bool isAddition);
+    void commonCaseAddition(const BigInteger& other, bool isAddition);
 
-    std::pair<BigInteger, BigInteger> division(const BigInteger &other);
+    std::pair<BigInteger, BigInteger> division(const BigInteger& other);
 
-    bool absGreater(const BigInteger &b) const;
+    bool absGreater(const BigInteger& b) const;
 
-    friend bool operator==(const BigInteger &a, const BigInteger &b);
+    friend bool operator==(const BigInteger& a, const BigInteger& b);
 
-    friend bool operator<(const BigInteger &a, const BigInteger &b);
+    friend bool operator<(const BigInteger& a, const BigInteger& b);
 };
 
-BigInteger gcd(const BigInteger &a, const BigInteger &b);
+BigInteger gcd(const BigInteger& a, const BigInteger& b);
 
 class Rational {
   public:
     Rational(int num);
 
-    Rational(const BigInteger &bi);
+    Rational(const BigInteger& bi);
 
     Rational();
 
-    Rational &operator=(const Rational &r);
+    Rational& operator=(const Rational& r);
 
-    Rational &operator+=(const Rational &r);
+    Rational& operator+=(const Rational& r);
 
-    Rational &operator-=(const Rational &r);
+    Rational& operator-=(const Rational& r);
 
-    Rational &operator*=(const Rational &r);
+    Rational& operator*=(const Rational& r);
 
-    Rational &operator/=(const Rational &r);
+    Rational& operator/=(const Rational& r);
 
     Rational operator-() const;
 
@@ -174,13 +174,13 @@ class Rational {
 
     ~Rational();
 
-    friend bool operator==(const Rational &a, const Rational &b);
+    friend bool operator==(const Rational& a, const Rational& b);
 
-    friend bool operator<(const Rational &a, const Rational &b);
+    friend bool operator<(const Rational& a, const Rational& b);
 
   private:
-    template <typename Field> friend
-        struct is_field;
+    template <typename Field>
+    friend struct is_field;
     BigInteger numerator_, denominator_;
 
     void normalize();
@@ -200,10 +200,11 @@ static const bool is_greater_v = is_greater<L, R, N>::value;
 
 template <size_t L, size_t R, size_t N>
 struct square_root {
-    static const size_t value = (R == L + 1 ? L : square_root<(is_greater_v<L, R, N> ? L : (L + R) /
-                                                                                               2), (is_greater_v<L, R, N> ?
-                                                                                     (L + R) / 2
-                                                                                     : R), N>::value);
+    static const size_t value =
+        (R == L + 1 ? L
+                    : square_root<(is_greater_v<L, R, N> ? L : (L + R) / 2),
+                                  (is_greater_v<L, R, N> ? (L + R) / 2 : R),
+                                  N>::value);
 };
 
 template <size_t N>
@@ -246,37 +247,37 @@ class Residue {
   public:
     static const bool kIsPrime_ = is_prime_v<N>;
 
-    Residue(const Residue &another) : value(another.value) {};
+    Residue(const Residue& another) : value(another.value){};
 
-    Residue(int value) : value(value < 0 ? N - ((-value) % N) : value % N) {};
+    Residue(int value) : value(value < 0 ? N - ((-value) % N) : value % N){};
 
     Residue() : Residue(0) {}
 
-    Residue operator+=(const Residue &another) {
+    Residue operator+=(const Residue& another) {
         value += another.value;
         value %= N;
         return *this;
     }
 
-    Residue operator-=(const Residue &another) {
+    Residue operator-=(const Residue& another) {
         value += (value < another.value ? N : 0);
         value -= another.value;
         return *this;
     }
 
-    Residue operator*=(const Residue &another) {
+    Residue operator*=(const Residue& another) {
         value *= another.value;
         value %= N;
         return *this;
     }
 
-    Residue operator/=(const Residue &another) {
+    Residue operator/=(const Residue& another) {
         static_assert(kIsPrime_, "Division in not a prime field!");
         *this *= another.inverseElement();
         return *this;
     }
 
-    Residue operator=(const Residue &another) {
+    Residue operator=(const Residue& another) {
         value = another.value;
         return value;
     }
@@ -285,7 +286,7 @@ class Residue {
         return value;
     }
 
-    bool operator==(const Residue &another) const {
+    bool operator==(const Residue& another) const {
         return value == another.value;
     }
 
@@ -316,27 +317,27 @@ class Residue {
 };
 
 template <size_t N>
-Residue<N> operator+(Residue<N> a, const Residue<N> &b) {
+Residue<N> operator+(Residue<N> a, const Residue<N>& b) {
     return a += b;
 }
 
 template <size_t N>
-Residue<N> operator-(Residue<N> a, const Residue<N> &b) {
+Residue<N> operator-(Residue<N> a, const Residue<N>& b) {
     return a -= b;
 }
 
 template <size_t N>
-Residue<N> operator*(Residue<N> a, const Residue<N> &b) {
+Residue<N> operator*(Residue<N> a, const Residue<N>& b) {
     return a *= b;
 }
 
 template <size_t N>
-Residue<N> operator/(Residue<N> a, const Residue<N> &b) {
+Residue<N> operator/(Residue<N> a, const Residue<N>& b) {
     return a /= b;
 }
 
 template <size_t N>
-std::ostream &operator<<(std::ostream &os, const Residue<N> &another) {
+std::ostream& operator<<(std::ostream& os, const Residue<N>& another) {
     os << static_cast<int>(another);
     return os;
 }

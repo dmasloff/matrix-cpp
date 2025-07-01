@@ -10,7 +10,7 @@ BigInteger::BigInteger(long long num)
     }
 }
 
-BigInteger::BigInteger(const std::string &str)
+BigInteger::BigInteger(const std::string& str)
     : digits_(0), size_(0), isNegative_(str[0] == '-') {
     long long i = str.size();
     while (i >= 9) {
@@ -30,7 +30,7 @@ BigInteger::BigInteger(const std::string &str)
 
 BigInteger::BigInteger() : digits_(0), size_(0), isNegative_(false) {}
 
-BigInteger &BigInteger::operator=(BigInteger other) {
+BigInteger& BigInteger::operator=(BigInteger other) {
     Swap(other);
     return *this;
 }
@@ -48,17 +48,17 @@ BigInteger BigInteger::operator-() const {
     return res;
 }
 
-BigInteger &BigInteger::operator+=(const BigInteger &other) {
+BigInteger& BigInteger::operator+=(const BigInteger& other) {
     commonCaseAddition(other, true);
     return *this;
 }
 
-BigInteger &BigInteger::operator-=(const BigInteger &other) {
+BigInteger& BigInteger::operator-=(const BigInteger& other) {
     commonCaseAddition(other, false);
     return *this;
 }
 
-BigInteger &BigInteger::operator*=(long long num) {
+BigInteger& BigInteger::operator*=(long long num) {
     isNegative_ = isNegative_ != (num < 0);
     num = (num < 0 ? -num : num);
     long long carry = 0;
@@ -77,7 +77,7 @@ BigInteger &BigInteger::operator*=(long long num) {
     return *this;
 }
 
-BigInteger &BigInteger::operator*=(const BigInteger &other) {
+BigInteger& BigInteger::operator*=(const BigInteger& other) {
     bool signcopy = isNegative_ != other.isNegative_;
     BigInteger copy = 0, tmp;
     isNegative_ = false;
@@ -96,19 +96,19 @@ BigInteger &BigInteger::operator*=(const BigInteger &other) {
     return *this;
 }
 
-BigInteger &BigInteger::operator/=(const BigInteger &other) {
+BigInteger& BigInteger::operator/=(const BigInteger& other) {
     *this = division(other).first;
     shrinkDigits();
     return *this;
 }
 
-BigInteger &BigInteger::operator%=(const BigInteger &other) {
+BigInteger& BigInteger::operator%=(const BigInteger& other) {
     *this = division(other).second;
     shrinkDigits();
     return *this;
 }
 
-BigInteger &BigInteger::operator++() {
+BigInteger& BigInteger::operator++() {
     *this += 1;
     return *this;
 }
@@ -119,7 +119,7 @@ BigInteger BigInteger::operator++(int) {
     return res;
 }
 
-BigInteger &BigInteger::operator--() {
+BigInteger& BigInteger::operator--() {
     *this -= 1;
     return *this;
 }
@@ -160,7 +160,7 @@ void BigInteger::makePositive() {
     isNegative_ = false;
 }
 
-void BigInteger::Swap(BigInteger &other) {
+void BigInteger::Swap(BigInteger& other) {
     std::swap(this->digits_, other.digits_);
     std::swap(this->size_, other.size_);
     std::swap(this->isNegative_, other.isNegative_);
@@ -198,7 +198,7 @@ void BigInteger::shrinkDigits() {
     }
 }
 
-void BigInteger::subtractionWithConstSign(const BigInteger &other) {
+void BigInteger::subtractionWithConstSign(const BigInteger& other) {
     long long carry = 0, i;
     for (i = 0; i < other.size_; ++i) {
         digits_[i] -= other.digits_[i] + carry;
@@ -219,7 +219,7 @@ void BigInteger::subtractionWithConstSign(const BigInteger &other) {
     }
 }
 
-void BigInteger::subtractionWithChangeableSign(const BigInteger &other) {
+void BigInteger::subtractionWithChangeableSign(const BigInteger& other) {
     isNegative_ = !isNegative_;
     size_ = std::max(size_, other.size_);
     digits_.resize(size_, 0);
@@ -234,7 +234,7 @@ void BigInteger::subtractionWithChangeableSign(const BigInteger &other) {
     }
 }
 
-void BigInteger::addition(const BigInteger &other) {
+void BigInteger::addition(const BigInteger& other) {
     long long carry = 0;
     if (size_ < other.size_) {
         digits_.resize(other.size_, 0);
@@ -251,7 +251,7 @@ void BigInteger::addition(const BigInteger &other) {
     }
 }
 
-void BigInteger::commonCaseAddition(const BigInteger &other, bool isAddition) {
+void BigInteger::commonCaseAddition(const BigInteger& other, bool isAddition) {
     if ((isNegative_ != other.isNegative_) == isAddition) {
         if (absGreater(other)) {
             subtractionWithConstSign(other);
@@ -265,7 +265,7 @@ void BigInteger::commonCaseAddition(const BigInteger &other, bool isAddition) {
 }
 
 std::pair<BigInteger, BigInteger> BigInteger::division(
-    const BigInteger &other) {
+    const BigInteger& other) {
     if (size_ < other.size_) {
         return {0, *this};
     }
@@ -305,7 +305,7 @@ std::pair<BigInteger, BigInteger> BigInteger::division(
     return {copy, *this};
 }
 
-bool BigInteger::absGreater(const BigInteger &b) const {
+bool BigInteger::absGreater(const BigInteger& b) const {
     if (size_ != b.size_) {
         return size_ > b.size_;
     }
@@ -316,41 +316,41 @@ bool BigInteger::absGreater(const BigInteger &b) const {
     return (*this)[i] > b[i];
 }
 
-BigInteger operator+(BigInteger a, const BigInteger &b) {
+BigInteger operator+(BigInteger a, const BigInteger& b) {
     a += b;
     return a;
 }
 
-BigInteger operator-(BigInteger a, const BigInteger &b) {
+BigInteger operator-(BigInteger a, const BigInteger& b) {
     a -= b;
     return a;
 }
 
-BigInteger operator*(BigInteger a, const BigInteger &b) {
+BigInteger operator*(BigInteger a, const BigInteger& b) {
     a *= b;
     return a;
 }
 
-BigInteger operator/(BigInteger a, const BigInteger &b) {
+BigInteger operator/(BigInteger a, const BigInteger& b) {
     a /= b;
     return a;
 }
 
-BigInteger operator%(BigInteger a, const BigInteger &b) {
+BigInteger operator%(BigInteger a, const BigInteger& b) {
     a %= b;
     return a;
 }
 
-bool operator==(const BigInteger &a, const BigInteger &b) {
+bool operator==(const BigInteger& a, const BigInteger& b) {
     return a.isNegative_ == b.isNegative_ && a.size_ == b.size_ &&
            a.digits_ == b.digits_;
 }
 
-bool operator!=(const BigInteger &a, const BigInteger &b) {
+bool operator!=(const BigInteger& a, const BigInteger& b) {
     return !(a == b);
 }
 
-bool operator<(const BigInteger &a, const BigInteger &b) {
+bool operator<(const BigInteger& a, const BigInteger& b) {
     if (a.isNegative_ != b.isNegative_) {
         return a.isNegative_;
     }
@@ -364,39 +364,39 @@ bool operator<(const BigInteger &a, const BigInteger &b) {
     return a.isNegative_ != (a[i] < b[i]);
 }
 
-bool operator>(const BigInteger &a, const BigInteger &b) {
+bool operator>(const BigInteger& a, const BigInteger& b) {
     return (b < a);
 }
 
-bool operator<=(const BigInteger &a, const BigInteger &b) {
+bool operator<=(const BigInteger& a, const BigInteger& b) {
     return !(a > b);
 }
 
-bool operator>=(const BigInteger &a, const BigInteger &b) {
+bool operator>=(const BigInteger& a, const BigInteger& b) {
     return !(a < b);
 }
 
-std::ostream &operator<<(std::ostream &os, const BigInteger &bigInteger) {
+std::ostream& operator<<(std::ostream& os, const BigInteger& bigInteger) {
     os << bigInteger.toString();
     return os;
 }
 
-std::istream &operator>>(std::istream &is, BigInteger &bigInteger) {
+std::istream& operator>>(std::istream& is, BigInteger& bigInteger) {
     std::string str;
     is >> str;
     bigInteger = BigInteger(str);
     return is;
 }
 
-BigInteger operator ""_bi(unsigned long long num) {
+BigInteger operator""_bi(unsigned long long num) {
     return BigInteger(num);
 }
 
-BigInteger operator ""_bi(const char *c, size_t len) {
+BigInteger operator""_bi(const char* c, size_t len) {
     return BigInteger(std::string(c, len));
 }
 
-BigInteger gcd(const BigInteger &a, const BigInteger &b) {
+BigInteger gcd(const BigInteger& a, const BigInteger& b) {
     BigInteger acopy = a, bcopy = b;
     acopy.makePositive();
     bcopy.makePositive();
@@ -410,19 +410,19 @@ BigInteger gcd(const BigInteger &a, const BigInteger &b) {
     return bcopy;
 }
 
-Rational::Rational(int num) : numerator_(num), denominator_(1) {};
+Rational::Rational(int num) : numerator_(num), denominator_(1){};
 
-Rational::Rational(const BigInteger &bi) : numerator_(bi), denominator_(1) {};
+Rational::Rational(const BigInteger& bi) : numerator_(bi), denominator_(1){};
 
-Rational::Rational() : numerator_(0), denominator_(1) {};
+Rational::Rational() : numerator_(0), denominator_(1){};
 
-Rational &Rational::operator=(const Rational &r) {
+Rational& Rational::operator=(const Rational& r) {
     numerator_ = r.numerator_;
     denominator_ = r.denominator_;
     return *this;
 }
 
-Rational &Rational::operator+=(const Rational &r) {
+Rational& Rational::operator+=(const Rational& r) {
     numerator_ *= r.denominator_;
     numerator_ += denominator_ * r.numerator_;
     denominator_ *= r.denominator_;
@@ -430,7 +430,7 @@ Rational &Rational::operator+=(const Rational &r) {
     return *this;
 }
 
-Rational &Rational::operator-=(const Rational &r) {
+Rational& Rational::operator-=(const Rational& r) {
     numerator_ *= r.denominator_;
     numerator_ -= denominator_ * r.numerator_;
     denominator_ *= r.denominator_;
@@ -438,14 +438,14 @@ Rational &Rational::operator-=(const Rational &r) {
     return *this;
 }
 
-Rational &Rational::operator*=(const Rational &r) {
+Rational& Rational::operator*=(const Rational& r) {
     numerator_ *= r.numerator_;
     denominator_ *= r.denominator_;
     normalize();
     return *this;
 }
 
-Rational &Rational::operator/=(const Rational &r) {
+Rational& Rational::operator/=(const Rational& r) {
     numerator_ *= r.denominator_;
     denominator_ *= r.numerator_;
     if (denominator_.isNegative()) {
@@ -511,56 +511,56 @@ void Rational::normalize() {
     };
 }
 
-Rational operator+(Rational a, const Rational &b) {
+Rational operator+(Rational a, const Rational& b) {
     a += b;
     return a;
 }
 
-Rational operator-(Rational a, const Rational &b) {
+Rational operator-(Rational a, const Rational& b) {
     a -= b;
     return a;
 }
 
-Rational operator*(Rational a, const Rational &b) {
+Rational operator*(Rational a, const Rational& b) {
     a *= b;
     return a;
 }
 
-Rational operator/(Rational a, const Rational &b) {
+Rational operator/(Rational a, const Rational& b) {
     a /= b;
     return a;
 }
 
-bool operator==(const Rational &a, const Rational &b) {
+bool operator==(const Rational& a, const Rational& b) {
     return (a.denominator_ * b.numerator_ == a.numerator_ * b.denominator_);
 }
 
-bool operator!=(const Rational &a, const Rational &b) {
+bool operator!=(const Rational& a, const Rational& b) {
     return !(a == b);
 }
 
-bool operator<(const Rational &a, const Rational &b) {
+bool operator<(const Rational& a, const Rational& b) {
     return (a.numerator_ * b.denominator_ < b.numerator_ * a.denominator_);
 }
 
-bool operator>(const Rational &a, const Rational &b) {
+bool operator>(const Rational& a, const Rational& b) {
     return (b < a);
 }
 
-bool operator<=(const Rational &a, const Rational &b) {
+bool operator<=(const Rational& a, const Rational& b) {
     return !(a > b);
 }
 
-bool operator>=(const Rational &a, const Rational &b) {
+bool operator>=(const Rational& a, const Rational& b) {
     return !(a < b);
 }
 
-std::ostream &operator<<(std::ostream &os, const Rational &r) {
+std::ostream& operator<<(std::ostream& os, const Rational& r) {
     os << r.toString();
     return os;
 }
 
-std::istream &operator>>(std::istream &is, Rational &r) {
+std::istream& operator>>(std::istream& is, Rational& r) {
     int tmp;
     is >> tmp;
     r = Rational(tmp);
